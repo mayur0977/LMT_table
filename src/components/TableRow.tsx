@@ -1,29 +1,50 @@
-const TableRow = (props: { list: number[] }) => {
+import { LeadList } from "../shared/table.model";
+
+const TableRow = (props: { list: LeadList[] }) => {
   const { list } = props;
   return (
     <>
-      {list.map((item, index) => (
-        <tr key={index}>
-          <td>Customer Name {item}</td>
-          <td>Lead Agent</td>
-          <td>Pend Agent</td>
-          <td>ST</td>
-          <td>PW</td>
-          <td>Initiated date</td>
-          <td>Pend Date</td>
-          <td>Last IB call</td>
-          <td>Last OB call</td>
-          <td>OB made by</td>
-          <td>OB 3 days</td>
-          <td>total OB</td>
-          <td>L</td>
-          <td>Next contact</td>
-          <td>Follow up agent</td>
-          <td>Account Note</td>
-          <td>Most recent disposition</td>
-          <td>Action</td>
+      {list.length === 0 && (
+        <tr className="d-flex align-items-center justify-content-center">
+          <td colSpan={4} className="fs-1 text-bold">
+            Loading
+          </td>
         </tr>
-      ))}
+      )}
+      {list &&
+        list.map((item) => (
+          <tr key={item.customerID}>
+            <td>
+              {item.name}
+              <br /> {item.customerID}
+            </td>
+            <td>{item.generalName}</td>
+            <td>{item.pendAgentName}</td>
+            <td>{item.leaseState}</td>
+            <td>{item.haveAllRequiredPaperwork ? "YES" : "NO"}</td>
+            <td>{item.initiatedDate}</td>
+            <td>{item.pendDate}</td>
+            <td>
+              {item.dateOfLastInBoundCall ? item.dateOfLastInBoundCall : "-"}
+            </td>
+            <td>
+              {item.dateOfLastInBoundCall ? item.dateOfLastInBoundCall : "-"}
+            </td>
+            <td>{item.outBoundCallMadeBy ? item.outBoundCallMadeBy : "-"}</td>
+            <td>
+              {item.outBoundCallInLast3Days
+                ? item.outBoundCallInLast3Days
+                : "-"}
+            </td>
+            <td>{item.totalOutBoundCalls}</td>
+            <td>{item.languageCode}</td>
+            <td>{item.nextContactDate}</td>
+            <td>{item.followUpAgent}</td>
+            <td>{item.accountNote}</td>
+            <td>{item.mostRecentDisposition}</td>
+            <td>Action</td>
+          </tr>
+        ))}
     </>
   );
 };

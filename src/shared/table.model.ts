@@ -1,3 +1,5 @@
+import { IBase } from "./core.model";
+
 export interface TableHead {
   headerTitle: string;
   isSorting: boolean;
@@ -6,52 +8,52 @@ export interface TableHead {
 export interface LeadList {
   agentUserName?: any;
   onlineContactUserName?: any;
-  generalName: string;
+  generalName: string | null;
   customerID: number;
-  firstName: string;
-  lastName: string;
-  leaseState: string;
-  regulatoryState: string;
+  firstName: string | null;
+  lastName: string | null;
+  leaseState: string | null;
+  regulatoryState: string | null;
   deviceLogRptgClassCd: number;
-  phoneNumber: string;
-  initiatedDate: Date;
-  accountNote: string;
+  phoneNumber: string | null;
+  initiatedDate: string | null;
+  accountNote: string | null;
   dateOfLastOutBoundCall?: any;
   dateOfLastInBoundCall?: any;
   totalOutBoundCalls: number;
   outBoundCallMadeBy?: any;
   outBoundCallInLast3Days: number;
   outBoundCallSinceInstall: number;
-  mostRecentDisposition: string;
-  createUser: string;
-  languageCd?: number;
-  agentAssignedToName: string;
-  agentAssignedToUser: string;
-  agentAssignedDate?: Date;
-  followUpAgentName: string;
-  followUpAgentUser: string;
-  followUpDate?: Date;
+  mostRecentDisposition: string | null;
+  createUser: string | null;
+  languageCd?: number | null;
+  agentAssignedToName: string | null;
+  agentAssignedToUser: string | null;
+  agentAssignedDate?: string | null;
+  followUpAgentName: string | null;
+  followUpAgentUser: string | null;
+  followUpDate?: string | null;
   doNotFollowUp: boolean;
-  followUpDateAssignedDate?: Date;
-  pendAgentName: string;
-  pendAgentUser: string;
-  pendDate?: Date;
-  installAgentName: string;
-  installAgentUser: string;
-  installDate?: Date;
+  followUpDateAssignedDate?: string | null;
+  pendAgentName: string | null;
+  pendAgentUser: string | null;
+  pendDate?: string | null;
+  installAgentName: string | null;
+  installAgentUser: string | null;
+  installDate?: string | null;
   requiredDocumentCount: number;
   documentApprovalCount: number;
-  nextContactDate?: Date;
-  nextContactDateSort: Date;
+  nextContactDate?: string | null;
+  nextContactDateSort: string | null;
   nextContactDateSortOrder: number;
-  createUserName: string;
-  leadAgent: string;
-  pendAgent: string;
-  followUpAgent: string;
-  followUpAgentUserName: string;
-  assignedToMe: string;
-  name: string;
-  languageCode: string;
+  createUserName: string | null;
+  leadAgent: string | null;
+  pendAgent: string | null;
+  followUpAgent: string | null;
+  followUpAgentUserName: string | null;
+  assignedToMe: string | null;
+  name: string | null;
+  languageCode: string | null;
   haveAllRequiredPaperwork: boolean;
 }
 
@@ -63,13 +65,52 @@ export interface Data {
   assignedToMeFilterList: string[];
 }
 
+export interface IPendWithInstallResponse
+  extends IBase<{
+    leadList: LeadList[];
+    stateFilterList: string[];
+    languageCodeFilterList: string[];
+    dispositionFilterList: string[];
+    assignedToMeFilterList: string[];
+  }> {}
+
+export interface TableFilter {
+  State: string;
+  Disposition: string;
+  AssignedToMe: string;
+  InitiatedDateFrom: string;
+  InitiatedDateTo: string;
+  LastInBoundCallToDate: string;
+  LastInBoundCallFromDate: string;
+  LastOutBoundCallToDate: string;
+  LastOutBoundCallFromDate: string;
+  TotalOutBounds: number;
+  TotalOutBoundsMin: number;
+  TotalOutBoundsMax: number;
+  OutBoundLastThreeDays: number;
+  OutBoundLastThreeDaysMin: number;
+  OutBoundLastThreeDaysMax: number;
+  NextContactTo: string;
+  NextContactFrom: string;
+  PendToDate: string;
+  PendFromDate: string;
+  InstallToDate: string;
+  InstallFromDate: string;
+  isNextContactDateRange: boolean;
+  isNoContactDate: boolean;
+  isDoNotFollowUp: boolean;
+  LanguageCode: string;
+  PW: string;
+  SearchText: string;
+}
+
 export interface RootObject {
   success: boolean;
   statusCode: number;
   message: string;
   data: Data;
 }
-const leadListMock = [
+export const LeadListMockData: LeadList[] = [
   {
     agentUserName: null,
     onlineContactUserName: null,
@@ -582,7 +623,7 @@ const leadListMock = [
   },
 ];
 
-const exampleLead = {
+export const exampleLead = {
   agentUserName: null,
   onlineContactUserName: null,
   generalName: "AlokTestAgent", //Lead agent
