@@ -105,14 +105,14 @@ function App() {
             <option value="-1">All</option>
           </select>
 
-          <button
+          {/* <button
             onClick={() => {
               setCurrentPage(currentPage + 1);
               nextPage(currentPage + 1);
             }}
           >
             Next Page {currentPage}
-          </button>
+          </button> */}
         </div>
       </div>
       <PendWithoutInstall
