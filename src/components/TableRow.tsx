@@ -40,8 +40,14 @@ const TableRow = (props: { list: LeadList[] }) => {
             <td>{item.languageCode}</td>
             <td>{item.nextContactDate}</td>
             <td>{item.followUpAgent}</td>
-            <td>{item.accountNote}</td>
-            <td>{item.mostRecentDisposition}</td>
+            <td
+              title={item.accountNote ? item.accountNote : ""}
+              className="text-truncate"
+              style={{ maxWidth: "200px" }}
+            >
+              {item.accountNote}
+            </td>
+            <td className="text-truncate">{item.mostRecentDisposition}</td>
             <td>Action</td>
           </tr>
         ))}
