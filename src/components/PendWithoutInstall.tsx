@@ -1,9 +1,9 @@
-import { TableHead } from "../shared/table.model";
+import { LeadList, TableHead } from "../shared/table.model";
 import TableRow from "./TableRow";
 
 const PendWithoutInstall = (props: {
   headerConfig: TableHead[];
-  tableList: number[];
+  tableList: LeadList[];
 }) => {
   const { headerConfig, tableList } = props;
 

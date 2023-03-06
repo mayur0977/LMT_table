@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import "./App.scss";
 import PendWithoutInstall from "./components/PendWithoutInstall";
-import { TableHead } from "./shared/table.model";
+import { LeadList, LeadListMockData, TableHead } from "./shared/table.model";
+import tablesService from "./shared/table.service";
 
 function App() {
   const tableConfig: TableHead[] = [
@@ -22,11 +24,26 @@ function App() {
     { headerTitle: "Account Note", isSorting: false },
     { headerTitle: "Most recent disposition", isSorting: false },
   ];
-  const tableList = Array.from(Array(100).keys());
+
+  const [pendWithoutInstallList, setPendWithoutInstallList] = useState<
+    LeadList[]
+  >([]);
+
+  useEffect(() => {
+    tablesService
+      .getPendWithoutInstallDataList()
+      .then(() => {})
+      .catch((error) => {
+        setPendWithoutInstallList(LeadListMockData);
+      });
+  }, []);
 
   return (
     <>
-      <PendWithoutInstall headerConfig={tableConfig} tableList={tableList} />
+      <PendWithoutInstall
+        headerConfig={tableConfig}
+        tableList={pendWithoutInstallList}
+      />
     </>
   );
 }
