@@ -4,6 +4,13 @@ const TableRow = (props: { list: LeadList[] }) => {
   const { list } = props;
   return (
     <>
+      {list.length === 0 && (
+        <tr className="d-flex align-items-center justify-content-center">
+          <td colSpan={4} className="fs-1 text-bold">
+            Loading
+          </td>
+        </tr>
+      )}
       {list &&
         list.map((item) => (
           <tr key={item.customerID}>
