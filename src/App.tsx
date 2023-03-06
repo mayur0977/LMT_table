@@ -76,10 +76,10 @@ function App() {
     setPagePerSize(+e);
     getData(currentPage, e);
   };
-  const nextPage = (e: any) => {
-    setCurrentPage(e);
-    getData(e, pagePerSize);
-  };
+  // const nextPage = (e: any) => {
+  //   setCurrentPage(e);
+  //   getData(e, pagePerSize);
+  // };
 
   useEffect(() => {
     getData(currentPage, pagePerSize);
