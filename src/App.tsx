@@ -63,33 +63,26 @@ function App() {
     SearchText: "",
   };
 
-  const pageSizeSelect = (e: any) => {
-    setPagePerSize(+e);
-    tablesService
-      .getPendWithoutInstallDataList(currentPage, e, filterData)
-      .then((res) => {
-        setPendWithoutInstallList(res.data.leadList);
-      });
-  };
-  const nextPage = (e: any) => {
-    setCurrentPage(e);
-    tablesService
-      .getPendWithoutInstallDataList(e, pagePerSize, filterData)
-      .then((res) => {
-        setPendWithoutInstallList(res.data.leadList);
-      });
-  };
-
-  useEffect(() => {
-    console.log("CALLED");
-
+  const getData = (currentPage: number, pagePerSize: number) => {
+    setPendWithoutInstallList([]);
     tablesService
       .getPendWithoutInstallDataList(currentPage, pagePerSize, filterData)
       .then((res) => {
         console.log("RES", res);
-
         setPendWithoutInstallList(res.data.leadList);
       });
+  };
+  const pageSizeSelect = (e: any) => {
+    setPagePerSize(+e);
+    getData(currentPage, e);
+  };
+  const nextPage = (e: any) => {
+    setCurrentPage(e);
+    getData(e, pagePerSize);
+  };
+
+  useEffect(() => {
+    getData(currentPage, pagePerSize);
   }, []);
 
   return (
