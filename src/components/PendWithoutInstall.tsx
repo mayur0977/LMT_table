@@ -6,6 +6,7 @@ const PendWithoutInstall = (props: {
   tableList: LeadList[];
 }) => {
   const { headerConfig, tableList } = props;
+  console.log("tableList", tableList);
 
   return (
     <div className="container-fluid">

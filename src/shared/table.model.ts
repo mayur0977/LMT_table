@@ -1,3 +1,5 @@
+import { IBase } from "./core.model";
+
 export interface TableHead {
   headerTitle: string;
   isSorting: boolean;
@@ -61,6 +63,45 @@ export interface Data {
   languageCodeFilterList: string[];
   dispositionFilterList: string[];
   assignedToMeFilterList: string[];
+}
+
+export interface IPendWithInstallResponse
+  extends IBase<{
+    leadList: LeadList[];
+    stateFilterList: string[];
+    languageCodeFilterList: string[];
+    dispositionFilterList: string[];
+    assignedToMeFilterList: string[];
+  }> {}
+
+export interface TableFilter {
+  State: string;
+  Disposition: string;
+  AssignedToMe: string;
+  InitiatedDateFrom: string;
+  InitiatedDateTo: string;
+  LastInBoundCallToDate: string;
+  LastInBoundCallFromDate: string;
+  LastOutBoundCallToDate: string;
+  LastOutBoundCallFromDate: string;
+  TotalOutBounds: number;
+  TotalOutBoundsMin: number;
+  TotalOutBoundsMax: number;
+  OutBoundLastThreeDays: number;
+  OutBoundLastThreeDaysMin: number;
+  OutBoundLastThreeDaysMax: number;
+  NextContactTo: string;
+  NextContactFrom: string;
+  PendToDate: string;
+  PendFromDate: string;
+  InstallToDate: string;
+  InstallFromDate: string;
+  isNextContactDateRange: boolean;
+  isNoContactDate: boolean;
+  isDoNotFollowUp: boolean;
+  LanguageCode: string;
+  PW: string;
+  SearchText: string;
 }
 
 export interface RootObject {

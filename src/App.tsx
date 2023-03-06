@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import "./App.scss";
 import PendWithoutInstall from "./components/PendWithoutInstall";
-import { LeadList, LeadListMockData, TableHead } from "./shared/table.model";
+import { LeadList, TableFilter, TableHead } from "./shared/table.model";
 import tablesService from "./shared/table.service";
 
 function App() {
@@ -29,17 +30,98 @@ function App() {
     LeadList[]
   >([]);
 
-  useEffect(() => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pagePerSize, setPagePerSize] = useState<number>(25);
+
+  const filterData: TableFilter = {
+    State: "",
+    Disposition: "",
+    AssignedToMe: "",
+    InitiatedDateFrom: "1900-01-01T00:00:00",
+    InitiatedDateTo: "1900-01-01T00:00:00",
+    LastInBoundCallToDate: "1900-01-01T00:00:00",
+    LastInBoundCallFromDate: "1900-01-01T00:00:00",
+    LastOutBoundCallToDate: "1900-01-01T00:00:00",
+    LastOutBoundCallFromDate: "1900-01-01T00:00:00",
+    TotalOutBounds: 0,
+    TotalOutBoundsMin: 0,
+    TotalOutBoundsMax: 0,
+    OutBoundLastThreeDays: 0,
+    OutBoundLastThreeDaysMin: 0,
+    OutBoundLastThreeDaysMax: 0,
+    NextContactTo: "1900-01-01T00:00:00",
+    NextContactFrom: "1900-01-01T00:00:00",
+    PendToDate: "1900-01-01T00:00:00",
+    PendFromDate: "1900-01-01T00:00:00",
+    InstallToDate: "1900-01-01T00:00:00",
+    InstallFromDate: "1900-01-01T00:00:00",
+    isNextContactDateRange: false,
+    isNoContactDate: false,
+    isDoNotFollowUp: false,
+    LanguageCode: "",
+    PW: "",
+    SearchText: "",
+  };
+
+  const pageSizeSelect = (e: any) => {
+    setPagePerSize(+e);
     tablesService
-      .getPendWithoutInstallDataList()
-      .then(() => {})
-      .catch((error) => {
-        setPendWithoutInstallList(LeadListMockData);
+      .getPendWithoutInstallDataList(currentPage, e, filterData)
+      .then((res) => {
+        setPendWithoutInstallList(res.data.leadList);
+      });
+  };
+  const nextPage = (e: any) => {
+    setCurrentPage(e);
+    tablesService
+      .getPendWithoutInstallDataList(e, pagePerSize, filterData)
+      .then((res) => {
+        setPendWithoutInstallList(res.data.leadList);
+      });
+  };
+
+  useEffect(() => {
+    console.log("CALLED");
+
+    tablesService
+      .getPendWithoutInstallDataList(currentPage, pagePerSize, filterData)
+      .then((res) => {
+        console.log("RES", res);
+
+        setPendWithoutInstallList(res.data.leadList);
       });
   }, []);
 
   return (
     <>
+      <div className="container">
+        <div className="d-flex align-items-center p-3">
+          <label htmlFor="selectPageSize">Records per page </label>
+          {"    "}
+          <select
+            className="p-1"
+            id="selectPageSize"
+            value={pagePerSize}
+            onChange={(e) => {
+              pageSizeSelect(e.target.value);
+            }}
+          >
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="-1">All</option>
+          </select>
+
+          <button
+            onClick={() => {
+              setCurrentPage(currentPage + 1);
+              nextPage(currentPage + 1);
+            }}
+          >
+            Next Page {currentPage}
+          </button>
+        </div>
+      </div>
       <PendWithoutInstall
         headerConfig={tableConfig}
         tableList={pendWithoutInstallList}
