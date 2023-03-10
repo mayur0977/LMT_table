@@ -3,6 +3,7 @@ import { IBase } from "./core.model";
 export interface TableHead {
   headerTitle: string;
   isSorting: boolean;
+  fieldName: string;
 }
 
 export interface LeadList {

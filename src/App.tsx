@@ -6,24 +6,65 @@ import { LeadList, TableFilter, TableHead } from "./shared/table.model";
 import tablesService from "./shared/table.service";
 
 function App() {
+  //Pending witout istall
   const tableConfig: TableHead[] = [
-    { headerTitle: "Customer Name", isSorting: false },
-    { headerTitle: "Lead Agent", isSorting: false },
-    { headerTitle: "Pend Agent", isSorting: false },
-    { headerTitle: "ST", isSorting: false },
-    { headerTitle: "PW", isSorting: false },
-    { headerTitle: "Initiated date", isSorting: false },
-    { headerTitle: "Pend Date", isSorting: false },
-    { headerTitle: "Last IB call", isSorting: false },
-    { headerTitle: "Last OB call", isSorting: false },
-    { headerTitle: "OB made by", isSorting: false },
-    { headerTitle: "OB 3 days", isSorting: false },
-    { headerTitle: "total OB", isSorting: false },
-    { headerTitle: "L", isSorting: false },
-    { headerTitle: "Next contact", isSorting: false },
-    { headerTitle: "Follow up agent", isSorting: false },
-    { headerTitle: "Account Note", isSorting: false },
-    { headerTitle: "Most recent disposition", isSorting: false },
+    { headerTitle: "Customer Name", isSorting: false, fieldName: "name" },
+    { headerTitle: "Lead Agent", isSorting: false, fieldName: "generalName" },
+    { headerTitle: "Pend Agent", isSorting: false, fieldName: "pendAgentName" },
+    { headerTitle: "ST", isSorting: false, fieldName: "leaseState" },
+    {
+      headerTitle: "PW",
+      isSorting: false,
+      fieldName: "haveAllRequiredPaperwork",
+    },
+    {
+      headerTitle: "Initiated date",
+      isSorting: false,
+      fieldName: "initiatedDate",
+    },
+    { headerTitle: "Pend Date", isSorting: false, fieldName: "pendDate" },
+    {
+      headerTitle: "Last IB call",
+      isSorting: false,
+      fieldName: "dateOfLastInBoundCall",
+    },
+    {
+      headerTitle: "Last OB call",
+      isSorting: false,
+      fieldName: "dateOfLastInBoundCall",
+    },
+    {
+      headerTitle: "OB made by",
+      isSorting: false,
+      fieldName: "outBoundCallMadeBy",
+    },
+    {
+      headerTitle: "OB 3 days",
+      isSorting: false,
+      fieldName: "outBoundCallInLast3Days",
+    },
+    {
+      headerTitle: "total OB",
+      isSorting: false,
+      fieldName: "totalOutBoundCalls",
+    },
+    { headerTitle: "L", isSorting: false, fieldName: "languageCode" },
+    {
+      headerTitle: "Next contact",
+      isSorting: false,
+      fieldName: "nextContactDate",
+    },
+    {
+      headerTitle: "Follow up agent",
+      isSorting: false,
+      fieldName: "followUpAgent",
+    },
+    { headerTitle: "Account Note", isSorting: false, fieldName: "accountNote" },
+    {
+      headerTitle: "Most recent disposition",
+      isSorting: false,
+      fieldName: "mostRecentDisposition",
+    },
   ];
 
   const [pendWithoutInstallList, setPendWithoutInstallList] = useState<

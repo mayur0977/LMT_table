@@ -21,7 +21,7 @@ const PendWithoutInstall = (props: {
             </tr>
           </thead>
           <tbody>
-            <TableRow list={tableList} />
+            <TableRow list={tableList} columConfig={headerConfig} />
           </tbody>
         </table>
       </div>
